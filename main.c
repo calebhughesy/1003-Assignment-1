@@ -2,7 +2,14 @@
 
 int main ()
 {
-  printf("Testing 1, 2, 3.");
+    char Rotation;
+    char Substitution;
     
-    return 0;
+char method[2] = {Rotation, Substitution};
+  printf("Please choose from one of the following encryption methods:\n - Rotation\n - Substitution\n\n");
+  scanf("%s", method);
+  
+  printf("%s was chosen. Would you like to encrypt or decrpyt?\n", method);
+  
+  return 0;
 }
