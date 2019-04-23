@@ -1,4 +1,18 @@
+/*This program enables the user to select from two different cipher types for the
+purpose of encrypting or decrypting. The user is asked to choose their desired option
+via the initial menu. For the rotation (or Caesar) cipher options, the user will be asked
+to input their message and desired shift key into the terminal. For the substitution cipher,
+all inputs will be read from the "input" file. The overall goal of this program is to provide
+an easy-to-use encryption/decryption platform that displays the basics of cipher functionality.*/
+
+
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+void encrypt(char inchar);
+
+
 int main ()
 {
     int choice;
@@ -12,25 +26,22 @@ int main ()
         
     switch (choice)
     {
-        case 1: printf("\nOption 1 selected.\n");
+        case 1: printf("\Encryption via rotation selected.\n");
         {
-	char message[] = "input.txt", msg, ch;
+	char message[100], ch;
 	int i, key;
 	
-	//FILE *inFile;
-	//inFile = fopen(message, "r");
-	//fscanf(inFile, "%c", &msg);
 	printf("\nEnter a message to encrypt: \n");
-	gets(message);
+	scanf("%s", message);
 	printf("Enter shift key: \n");
 	scanf("%d", &key);
 	
-	for(i = 0; message[i] != '\0'; ++i){
+	for(i = 0; message[i]!= '\0'; ++i){
 		ch = message[i];
 		
 	
-		if(ch >= 'A' && ch <= 'Z'){
-			ch = ch + key;
+		if(ch >= 'A' && ch <= 'Z' && NULL==0){
+			ch += key;
 			
 			if(ch > 'Z'){
 				ch = ch - 'Z' + 'A' - 1;
@@ -44,22 +55,22 @@ int main ()
 	
 	return 0;
 }
-        case 2: printf("\nOption 2 selected.\n");
+        case 2: printf("\nDecryption via rotation selected.\n");
         {
 	char message[100], ch;
 	int i, key;
 	
-	printf("Enter a message to decrypt (CAPITAL LETTERS ONLY): ");
-	gets(message);
-	//scanf("%s", message);
-	printf("Enter shift key: ");
+	printf("Enter a message to decrypt (CAPITAL LETTERS ONLY): \n");
+	//gets(message);
+	scanf("%s", message);
+	printf("Enter shift key: \n");
 	scanf("%d", &key);
 	
-	for(i = 0; message[i] != '\0'; ++i){
+	for(i = 0; message[i]; ++i){
 		ch = message[i];
 		
 		if(ch >= 'A' && ch <= 'Z'){
-			ch = ch + key;
+			ch += key;
 			
 			message[i] = ch;
 		}
@@ -70,9 +81,49 @@ int main ()
 	return 0;
 }
         break;
-        case 3: printf("Option 3 selected.\n");
+        case 3: printf("Encryption via subsitution chosen.\n");
         break;
-        case 4: printf("Option 4 selected.\n");
+        
+void encrypt(char inchar)
+{
+  //Changing chars
+  inchar = inchar + 6; //This is a simple sobstution
+
+  //print encrypted char
+  printf("%c",inchar);
+}
+
+
+int argc;
+char** argv[100];
+{
+    FILE *inputFile;
+    char inputBuffer[80];
+    char inchar;
+    int i;
+
+    inputFile = fopen("input.txt", "r");
+
+    //check file
+    if (inputFile == NULL){ 
+      printf("Failed to open\n");
+      return 0;
+    }else{
+      //inputFile is valid so I read a string
+      //and store it in inputBuffer
+      fgets(inputBuffer, 80, inputFile);
+
+      //pass every character of inputBuffer to encrypt()
+      for(i=0; i<strlen(inputBuffer); i++){
+    encrypt(inputBuffer[i]);
+      }
+
+    }
+
+    printf("\n\n");
+    return 0;
+}
+        case 4: printf("Decryption via substitution selected.\n");
         break;
         default: printf("Error - option not identified.");/* for any
         value other than 1-4 */
