@@ -21,19 +21,22 @@ int main ()
         printf("1. Encryption with rotation\n");
         printf("2. Decryption with rotation\n");
         printf("3. Encryption with substitution\n");
-        printf("4. Decyrption with substitution\n");
+        printf("4. Decryption with substitution\n");
         scanf("%d", &choice);// value is read from "input" file.
         
     switch (choice)
     {
-        case 1: printf("\Encryption via rotation selected.\n");
+        case 1: printf("\nEncryption via rotation selected.\n");
         {
-	char message[100], ch;
+	char message[1000], ch;
 	int i, key;
 	
-	printf("\nEnter a message to encrypt: \n");
-	scanf("%s", message);
-	printf("Enter shift key: \n");
+	printf("\nEnter a message to encrypt: ");
+	//scanf("%[^\n]s", message);
+	fgetc(stdin);
+	fgets(message, 1000, stdin);
+	
+	printf("\nEnter shift key: ");
 	scanf("%d", &key);
 	
 	for(i = 0; message[i]!= '\0'; ++i){
@@ -44,39 +47,43 @@ int main ()
 			ch += key;
 			
 			if(ch > 'Z'){
-				ch = ch - 'Z' + 'A' - 1;
+				ch -= 'Z' + 'A' - 1;
 			}
 			
 			message[i] = ch;
 		}
 	}
 	
-	printf("Encrypted message: %s", message);
+	printf("\nEncrypted message: %s", message);
 	
 	return 0;
 }
         case 2: printf("\nDecryption via rotation selected.\n");
         {
-	char message[100], ch;
+	char message[1000], ch;
 	int i, key;
 	
-	printf("Enter a message to decrypt (CAPITAL LETTERS ONLY): \n");
-	//gets(message);
-	scanf("%s", message);
-	printf("Enter shift key: \n");
+	printf("Enter a message to decrypt (CAPITAL LETTERS ONLY): ");
+	
+	fgetc(stdin);
+	fgets(message, 1000, stdin);
+	
+	printf("\nEnter shift key: ");
 	scanf("%d", &key);
 	
-	for(i = 0; message[i]; ++i){
+	for(i = 0; message[i] != '\0'; ++i){
 		ch = message[i];
 		
 		if(ch >= 'A' && ch <= 'Z'){
-			ch += key;
-			
+			ch -= key;
+			if(ch<'A'){
+			    ch += 'Z' - 'A' + 1;
+			}
 			message[i] = ch;
 		}
 	}
 	
-	printf("Original message: %s", message);
+	printf("\nOriginal message: %s", message);
 	
 	return 0;
 }
@@ -84,7 +91,7 @@ int main ()
         case 3: printf("Encryption via subsitution chosen.\n");
         break;
         
-void encrypt(char inchar)
+/*void encrypt(char inchar)
 {
   //Changing chars
   inchar = inchar + 6; //This is a simple sobstution
@@ -122,7 +129,7 @@ char** argv[100];
 
     printf("\n\n");
     return 0;
-}
+}*/
         case 4: printf("Decryption via substitution selected.\n");
         break;
         default: printf("Error - option not identified.");/* for any
