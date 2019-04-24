@@ -9,6 +9,7 @@ an easy-to-use encryption/decryption platform that displays the basics of cipher
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 void encrypt(char inchar);
 
@@ -32,7 +33,6 @@ int main ()
 	int i, key;
 	
 	printf("\nEnter a message to encrypt: ");
-	//scanf("%[^\n]s", message);
 	fgetc(stdin);
 	fgets(message, 1000, stdin);
 	
@@ -43,12 +43,14 @@ int main ()
 		ch = message[i];
 		
 	
-		if(ch >= 'A' && ch <= 'Z' && NULL==0){
-			ch += key;
-			
-			if(ch > 'Z'){
-				ch -= 'Z' + 'A' - 1;
-			}
+		if(ch >= 'A' && ch <= 'Z')
+		{
+		  ch += key;
+
+		 if(ch > 'Z')
+		{
+		  ch = ch - 'Z' + 'A' - 1;
+		}
 			
 			message[i] = ch;
 		}
@@ -77,7 +79,7 @@ int main ()
 		if(ch >= 'A' && ch <= 'Z'){
 			ch -= key;
 			if(ch<'A'){
-			    ch += 'Z' - 'A' + 1;
+			    ch = ch + 'Z' - 'A' + 1;
 			}
 			message[i] = ch;
 		}
