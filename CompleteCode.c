@@ -10,6 +10,16 @@ an easy-to-use encryption/decryption platform that displays the basics of cipher
 #include <string.h>
 #include <stdlib.h>
 
+char *encryption(char[]);
+char *decryption(char[]);
+
+size_t strlen(const char* str);
+char* strcpy(char* cipher, const char* out_text);
+
+char alpha[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+char key[26];
+char decryptionKey[26];
+
 
 int main ()
 {
@@ -28,7 +38,7 @@ int main ()
    int i, choice, key;
    char message[1000], ch;
 
-   printf("\nPlease choose following options:\n");
+   printf("\nPlease choose from the following options:\n");
    printf("1. Encryption\n");
    printf("2. Decryption\n");
    printf("\nChoice number: ");
@@ -104,9 +114,42 @@ int main ()
    }
    return 0;
 }
-        
+/*===========================================================================================*/       
         case 2: printf("Substitution method selected.");
+    
+{
+    int i, choice;
+    char *c_text, message[1000], key[26], cipher[1000], *cipher_text, *out_text;
+    
+    
+    printf("\nPlease choose from the following options:");
+    printf("\n\n1. Encryption");
+    printf("\n2. Decryption\n");
+    scanf("%d", &choice);
+    
+    switch(choice)
+    {
+        case 1: printf("Enter your message: ");
+                fgetc(stdin);
+                fgets(message, 1000, stdin);
+                c_text = encryption(message);
         break;
+        
+        case 2: printf("Enter your message: ");
+                fgetc(stdin);
+                fgets(cipher, 1000, stdin);
+                cipher_text = decryption(cipher);
+       
+        break;
+        
+        default: printf("Invalid choice. Please try again");
+        break;
+    }
+}
+        return 0;
+
+        
+/*===========================================================================================*/
         
         case 3: printf("Decryption via rotation WITHOUT key selected.\n");
         {
@@ -148,3 +191,57 @@ int main ()
     }
     return 0;
 }
+
+char *encryption(char (out_text[]))//cipher_text[])
+        {
+        int i, j;
+        char message[1000];
+       
+        
+        printf("\nEnter a unique combination of 26 letters: ");
+        fgets(key, 26, stdin);
+        
+        for (i = 0; i < strlen(out_text); i++)
+        {
+            for (j = 0; j < 26; j++)
+            {
+                if(alpha[j]==out_text[i])//cipher_text[i])
+                {
+                    out_text[i]=key[j];
+                    break;
+                }
+            }
+        }
+            printf("\nEncrypted message: %s", out_text);
+            return out_text;
+        }
+        
+        char *decryption(char (out_text[]))
+        
+        {
+            int i, j;
+            char cipher[1000];
+            printf("Enter a unique combination of 26 letters: ");
+            scanf("%s", decryptionKey);
+            
+            cipher[1000] = decryptionKey[26];
+            out_text[1000] = alpha[26];
+            
+            
+            //strcpy(cipher, out_text);
+            
+            for(i = 0; i < strlen(out_text); i++)
+            {
+                for (j = 0; j < 26; j++)
+                {
+                    if (decryptionKey[j] == out_text[i]) //if(out_text[i] == key[j]);
+                    {
+                        out_text[i] = alpha[j];
+                    break;
+                    }
+                }
+            }
+            printf("\nOriginal message: %s", out_text);
+            return 0;
+        }
+
