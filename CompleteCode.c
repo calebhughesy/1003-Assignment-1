@@ -65,13 +65,14 @@ int main ()
     printf("\nChoice: ");
     scanf("%d", &choice); // Program scans for integer inputted by user.
      
-    /* Switch statements are used for jumpting to the case containing the program corresponding to the integer
+    /* Switch statements are used for jumping to the case containing the program corresponding to the integer
     inputted by the user. For example, if the user entered "1<enter> into the terminal", the program would jump
     to "case 1" inside of the switch statement. */
     
+    /* The below switch statement is used for selecting between the different cipher types. */
     switch (choice)
     {
-        case 1: printf("\nRotation method selected.\n");
+        case 1: printf("\nRotation Cipher selected.\n");
         {
             int i, choice, key; // "i" is for increment.
             char message[1000], ch; // Array, "message", has been given size limit of 1000. The program will not store anything larger.
@@ -102,7 +103,7 @@ int main ()
 	
 		              if(ch >= 'A' && ch <= 'Z') // If the letters contained in the message are between 'A' and 'Z', ch = ch + key.
 		              {
-		                  ch += key;
+		                  ch += key; // += corresponds to Left Side = Left Side + Right Side.
 
 		                  if(ch > 'Z') // If ch is greater than 'Z', value of ch is translated back to 'A' and then shifted accordingly.
 		                  {
@@ -118,10 +119,10 @@ int main ()
 	
             case 2: printf("\nDecryption selected.\n");
             {
-                char message[1000], ch;
+                char message[1000], ch; // Same variables and values as the encryption option above.
 	            int i, key;
 
-	            printf("Please a message to decrypt (CAPITAL LETTERS ONLY): ");
+	            printf("Please a message to decrypt (CAPITAL LETTERS ONLY): "); // User should input message that is incomprehendible.
 
 	            fgetc(stdin);
 	            fgets(message, 1000, stdin);
@@ -135,7 +136,7 @@ int main ()
 
 		              if(ch >= 'A' && ch <= 'Z')
 		              {
-			             ch -= key;
+			             ch -= key; // Difference between encryption and decryption is in the +'s and -'s within the "if" loops.
 			             if(ch<'A')
 			             {
 			                 ch = ch + 'Z' - 'A' + 1;
@@ -144,20 +145,22 @@ int main ()
 		              }
 	           }
 
-	           printf("\nOriginal message: %s", message);;	
+	           printf("\nDecrypted message: %s", message); // Decrypted message printed back to user in terminal.
 	           return 0;
             }
 
-            default: printf("\nError\n");
+            default: printf("\nInvalid choice, please try again.\n"); // Default statement is printed when value entered by user is not identified by program.
             return 0;
         }
+        
 /*===========================================================================================*/       
         
-        case 2: printf("Substitution method selected."); 
+        case 2: printf("Substitution Cipher selected."); 
         {
             int i, choice;
-            char *c_text, message[1000], cipher[1000], *cipher_text;
-    
+            char *c_text, message[1000], cipher[1000], *cipher_text; // "*c_text" and "*cipher_text" are pointers.
+            
+            /* Lines 164-166: Menu for Substitutution Cipher. */
             printf("\nPlease choose from the following options:");
             printf("\n\n1. Encryption");
             printf("\n2. Decryption\n");
@@ -166,21 +169,21 @@ int main ()
     
             switch(choice)
             {
-                case 1: printf("Enter your message: ");
+                case 1: printf("Enter your message: "); // Message input included in swtich statements due to difficulties encountered when included in function definition.
                 
                     fgetc(stdin);
                     fgets(message, 1000, stdin);
-                    c_text = encryption(message);
+                    c_text = encryption(message); // "encryption(message)" assigned to c_text, which has a pointer initialised in line 161.
                 break;
         
                 case 2: printf("Enter your message: ");
                 
                         fgetc(stdin);
                         fgets(cipher, 1000, stdin);
-                        cipher_text = decryption(cipher); 
+                        cipher_text = decryption(cipher); // "decryption(cipher)" assigned to cipher_text, which has a pointer inititalised in line 161.
                 break;
         
-                default: printf("Invalid choice. Please try again");
+                default: printf("Invalid choice, please try again.");
                 break;   
             }
             return 0;       
@@ -192,15 +195,16 @@ int main ()
         case 3: printf("Decryption via rotation WITHOUT key selected.\n");
         {
             char message[1000], ch;
-	        int i, key = 1;
+	        int i, key = 1; // Initial value of key is set to 1.
 	
 	        printf("Enter a message to decrypt (CAPITAL LETTERS ONLY): ");
 	
 	        fgetc(stdin);
 	        fgets(message, 1000, stdin);
 	
-	        while (key < 26)
+	        while (key < 26) // "While" loop continues until the condition is no longer true.
 	        {
+	           /* Lines 208-220 are from "Decryption" section of "Rotation" Cipher. */
 	           for(i = 0; message[i] != '\0'; ++i)
 	           {
 		          ch = message[i];
@@ -217,20 +221,19 @@ int main ()
 		          }
 	           }
 	           printf("Key: %d", key);
-	           printf("\nDecryptef message: %s\n\n", message);
+	           printf("\nDecrypted message: %s\n\n", message);
 	
-	           key++;
+	           key++; // "key" is incremented at the bottom of the "while" loop to ensure all 25 combinations are printed to the terminal.
 	       }
 	       return 0;
         }
         
-        default: printf("Error - option not identified.");/* for any
-        value other than 1-4*/
+        default: printf("\nInvalid choice, please try again.\n");
         return 0;
-    
+
         }
     }
-}
+} // Main function ends here. Any program after here is function definitions for "Substitution" Cipher
 
 
 /*===========================================================================================*/
@@ -284,4 +287,4 @@ char *encryption(char (out_text[]))
             }
             printf("\nOriginal message: %s", out_text);
             return 0;
-        }    }   }
+        }
