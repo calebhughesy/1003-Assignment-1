@@ -16,25 +16,35 @@ int main ()
     int choice;
     
         printf("Please choose from one of the following options:\n\n");
-        printf("1. Encryption with rotation\n");
-        printf("2. Decryption with rotation\n");
-        printf("3. Encryption with substitution\n");
-        printf("4. Decryption with substitution\n");
+        printf("1. Rotation\n");
+        printf("2. Substitution\n");
+        printf("3. Decryption via rotation WITHOUT key\n");
         scanf("%d", &choice);// value is read from "input" file.
         
     switch (choice)
     {
-        case 1: printf("\nEncryption via rotation selected.\n");
+        case 1: printf("\nRotation method selected.\n");
         {
-	       char message[1000], ch;
-	       int i, key;
-	
-	       printf("\nEnter a message to encrypt (CAPITAL LETTERS ONLY): ");
-           fgetc(stdin);
-	       fgets(message, 1000, stdin);
-	
-	     printf("\nEnter shift key: ");
-	     scanf("%d", &key);
+   int i, choice, key;
+   char message[1000], ch;
+
+   printf("\nPlease choose following options:\n");
+   printf("1. Encryption\n");
+   printf("2. Decryption\n");
+   printf("\nChoice number: ");
+   scanf("%d", &choice);
+
+   //using switch case statements
+   switch(choice)
+   {
+   case 1: printf("Encryption selected.\n");
+    {
+        printf("Please enter a message to encrypt (CAPITAL LETTERS ONLY): ");
+    fgetc(stdin);
+    fgets(message, 1000, stdin);
+   
+        printf("\nEnter shift key: ");
+	    scanf("%d", &key);
 	
 	for(i = 0; message[i]!= '\0'; ++i){
 		ch = message[i];
@@ -54,25 +64,26 @@ int main ()
 	}
 	
 	printf("\nEncrypted message: %s", message);
-	
 	return 0;
-}
-        case 2: printf("\nDecryption via rotation selected.\n");
-        {
-	char message[1000], ch;
+    }
+	
+   case 2:
+      printf("\nDecryption selected.\n");
+      {
+      char message[1000], ch;
 	int i, key;
-	
-	printf("Enter a message to decrypt (CAPITAL LETTERS ONLY): ");
-	
+
+	printf("Please a message to decrypt (CAPITAL LETTERS ONLY): ");
+
 	fgetc(stdin);
 	fgets(message, 1000, stdin);
-	
+
 	printf("\nEnter shift key: ");
 	scanf("%d", &key);
-	
+
 	for(i = 0; message[i] != '\0'; ++i){
 		ch = message[i];
-		
+
 		if(ch >= 'A' && ch <= 'Z'){
 			ch -= key;
 			if(ch<'A'){
@@ -81,19 +92,59 @@ int main ()
 			message[i] = ch;
 		}
 	}
-	
+
 	printf("\nOriginal message: %s", message);
 	
 	return 0;
+    }
+
+    
+   default:
+      printf("\nError\n");
+   }
+   return 0;
 }
-        break;
-        case 3: printf("Encryption via subsitution chosen.\n");
+        
+        case 2: printf("Substitution method selected.");
         break;
         
-        case 4: printf("Decryption via substitution selected.\n");
-        break;
+        case 3: printf("Decryption via rotation WITHOUT key selected.\n");
+        {
+        char message[1000], ch;
+	    int i, key = 1;
+	
+	printf("Enter a message to decrypt (CAPITAL LETTERS ONLY): ");
+	
+	fgetc(stdin);
+	fgets(message, 1000, stdin);
+	
+	while (key < 26)
+	{
+	for(i = 0; message[i] != '\0'; ++i)
+	{
+		ch = message[i];
+		
+		if(ch >= 'A' && ch <= 'Z')
+		{
+			ch =  ch - 1;
+			if(ch<'A')
+			{
+			    ch = ch + 'Z' - 'A' + 1;
+			}
+			message[i] = ch;
+		}
+	}
+	printf("Key: %d", key);
+	
+	printf("\nDecrypted message: %s\n\n", message);
+	
+	key++;
+	}
+	return 0;
+}
+        
         default: printf("Error - option not identified.");/* for any
-        value other than 1-4 */
+        value other than 1-4*/
     }
     return 0;
 }
