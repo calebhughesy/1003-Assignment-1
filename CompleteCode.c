@@ -73,8 +73,8 @@ int main ()
     {
         case 1: printf("\nRotation method selected.\n");
         {
-            int i, choice, key;
-            char message[1000], ch; // Message has been given size limit of 1000. The program will not store anything larger.
+            int i, choice, key; // "i" is for increment.
+            char message[1000], ch; // Array, "message", has been given size limit of 1000. The program will not store anything larger.
    
             /* Lines 78-80: Internal menu for encryption or decryption via rotation. */
             printf("\nPlease choose from the following options:\n");
@@ -92,27 +92,27 @@ int main ()
                     fgetc(stdin); // Reads and stores first letter of string inputted by user in terminal (stdin). Implemented due to problems reading first letter of string.
                     fgets(message, 1000, stdin); // Reads entire string from stdin.
    
-                    printf("\nEnter shift key: "); // User inputs desired shift key into terminal, stored as "key".
+                    printf("\nEnter shift key: "); // User inputs esired shift key into terminal, stored as "key".
 	                scanf("%d", &key);
 	
-	                for(i = 0; message[i]!= '\0'; ++i)
+	                for(i = 0; message[i]!= '\0'; ++i) // Syntax: intitial, condition, increment. Loop continues while conditiion is true.
 	                {
-		              ch = message[i];
+		              ch = message[i]; // Message is assigned to "ch".
 		
 	
-		              if(ch >= 'A' && ch <= 'Z')
+		              if(ch >= 'A' && ch <= 'Z') // If the letters contained in the message are between 'A' and 'Z', ch = ch + key.
 		              {
 		                  ch += key;
 
-		                  if(ch > 'Z')
+		                  if(ch > 'Z') // If ch is greater than 'Z', value of ch is translated back to 'A' and then shifted accordingly.
 		                  {
 		                      ch = ch - 'Z' + 'A' - 1;
                   		  }
 			
-			              message[i] = ch;
+			              message[i] = ch; // ch is then assigned back to "message" at the end of the loop.
 		              } 
                     }
-	               printf("\nEncrypted message: %s", message);
+	               printf("\nEncrypted message: %s", message); // Resulting message is printed once the loop is exited.
 	               return 0;
                 }
 	
@@ -144,7 +144,7 @@ int main ()
 		              }
 	           }
 
-	           printf("\nOriginal message: %s", message);	
+	           printf("\nOriginal message: %s", message);;	
 	           return 0;
             }
 
@@ -284,6 +284,4 @@ char *encryption(char (out_text[]))
             }
             printf("\nOriginal message: %s", out_text);
             return 0;
-        }
-
-
+        }    }   }
