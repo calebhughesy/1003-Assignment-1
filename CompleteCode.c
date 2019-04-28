@@ -226,10 +226,10 @@ int main ()
         
         default: printf("Error - option not identified.");/* for any
         value other than 1-4*/
-    return 0;
+        return 0;
     
-}
-}
+        }
+    }
 }
 
 
