@@ -207,7 +207,7 @@ int main ()
 	        fgetc(stdin);
 	        fgets(message, 1000, stdin);
 	
-	        while (key < 26) // "While" loop continues until the condition is no longer true.
+	        while (key < 26) // "While" loop continues until the condition is no longer true. Stops at 25 as Loop 26 would produce inputted message.
 	        {
 	           /* Lines 213-229 are from "Decryption" section of "Rotation" Cipher. */
 	           for(i = 0; message[i] != '\0'; ++i)
