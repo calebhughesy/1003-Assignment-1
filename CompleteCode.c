@@ -11,7 +11,7 @@ Example:
 
 1. Rotation
 2. Substitution
-3. Decryption via rotation without key"
+3. Decryption via rotation WITHOUT key"
 
 If the user wishes to select "Rotation", the user must type "1<enter>" into the terminal.
 
@@ -23,10 +23,10 @@ Example:
 
 Message: HELLO, Shift Key: 3, Encrypted message: KHOOR.
 
-2. Substitution Cipher: Swaps the letters inputted by the user with a letter from a unique combination of letters
+2. Substitution Cipher: Swaps the letters inputted by the user with a letter from a unique set of 26 letters,
 also implemented by the user.
 
-Example: Message: HELLO, Unique combination of letters: QWERTYUIOPASDFGHJKLZXCVBNM, Encrypted message: ITSSG.
+Example: Message: HELLO, Unique set of letters: QWERTYUIOPASDFGHJKLZXCVBNM, Encrypted message: ITSSG.
 
 One other option is available to the user: Decryption via rotation without key. This sub-program requires the user
 to input a message in the terminal but does NOT ask the user to input a shift key. Instead, the program runs on a loop, 
@@ -36,7 +36,7 @@ its associated shift key.
 To restart the program, the user must type "./a.out<enter>" into the terminal.*/
 
 
-/* Lines 42-44: Header files. Program cannot operate without them. */
+/* Lines 40-42: Header files. Program cannot operate without them. */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -46,7 +46,7 @@ char *encryption(char[]); // Asterisk (*) indicates pointer.
 char *decryption(char[]); // Pointer has argument of type char with an unknown size.
 size_t strlen(const char* str);
 
-/* Line 50: Array has hard-coded set of variables used as the alphabet in the Substitution Cipher. */
+/* Line 50: Array has hard-coded set of variables used as the alphabet in the "Substitution" Cipher. */
 char alpha[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 char EncryptionKey[26]; // Key values are determined by user, but size is restricted.
 char DecryptionKey[26];
@@ -78,7 +78,7 @@ int main ()
             char message[1000], sm; // Array, "message", has been given size limit of 1000. The program will not store anything larger.
    
             /* Lines 81-83: Internal menu for encryption or decryption via rotation. */
-            printf("\nPlease choose from the following options:\n");
+            printf("\nPlease choose from the following options: \n");
             printf("\n1. Encryption\n");
             printf("2. Decryption\n");
             printf("\nChoice: ");
@@ -89,7 +89,7 @@ int main ()
             {
                 case 1: printf("\nEncryption selected.\n");
                 {
-                    printf("Please enter a message to encrypt (CAPITAL LETTERS ONLY): ");
+                    printf("\nEnter a message to encrypt (CAPITAL LETTERS ONLY): ");
                     fgetc(stdin); // Reads and stores first letter of string inputted by user in terminal (stdin). Implemented due to problems reading first letter of string.
                     fgets(message, 1000, stdin); // Stores input from stdin in "message" if under 1000 characters in size.
    
@@ -122,7 +122,7 @@ int main ()
                 char message[1000], sm; // Same variables and values as the encryption option above.
 	            int i, key;
 
-	            printf("Please a message to decrypt (CAPITAL LETTERS ONLY): "); // User should input message that is incomprehendible.
+	            printf("\nEnter a message to decrypt (CAPITAL LETTERS ONLY): "); // User should input message that is incomprehendible.
 
 	            fgetc(stdin);
 	            fgets(message, 1000, stdin);
@@ -174,14 +174,14 @@ int main ()
             switch(choice)
             {
                 /* Message input included in swtich statements due to difficulties encountered when included in function definition. */
-                case 1: printf("Enter your message (CAPITAL LETTERS ONLY): ");
+                case 1: printf("\nEnter a message to encrypt (CAPITAL LETTERS ONLY): ");
                 
                         fgetc(stdin);
                         fgets(message, 1000, stdin);
                         c_text = encryption(message); // "encryption(message)" assigned to "c_text", which is a pointer declared in line 161.
                 break;
         
-                case 2: printf("Enter your message (CAPITAL LETTERS ONLY): ");
+                case 2: printf("\nEnter a message to decrypt (CAPITAL LETTERS ONLY): ");
                 
                         fgetc(stdin);
                         fgets(cipher, 1000, stdin);
@@ -199,7 +199,7 @@ int main ()
         
         case 3: printf("\nDecryption via rotation WITHOUT key selected.\n");
         {
-            char message[1000], ch;
+            char message[1000], sm;
 	        int i, key = 1; // Initial value of key is set to 1.
 	
 	        printf("\nEnter a message to decrypt (CAPITAL LETTERS ONLY): ");
@@ -212,17 +212,17 @@ int main ()
 	           /* Lines 213-229 are from "Decryption" section of "Rotation" Cipher. */
 	           for(i = 0; message[i] != '\0'; ++i)
 	           {
-		          ch = message[i];
+		          sm = message[i];
 		
-		          if(ch >= 'A' && ch <= 'Z')
+		          if(sm >= 'A' && sm <= 'Z')
 		          {
-			         ch =  ch - 1;
+			         sm =  sm - 1; // With each loop, each letter within the message is shifted back one place.
 			         
-			         if(ch<'A')
+			         if(sm < 'A')
 			         {
-			             ch = ch + 'Z' - 'A' + 1;
+			             sm = sm + 'Z' - 'A' + 1;
 			         }
-			         message[i] = ch;
+			         message[i] = sm;
 		          }
 	           }
 	           printf("\nKey: %d", key);
@@ -255,25 +255,25 @@ int main ()
                   Message: HELLO
         Encrypted message: ITSSG
  
-        The return value of this function is the value of "out_text". The only limitation evident with this function is that the message size CANNOT 
+        The return value of this function is the value of "out_text". The only limitation evident within this function is that the message size CANNOT 
         exceed 1000 characters in length. */
        
         char *encryption(char (out_text[]))
         {
-            int i, j; // Values are incrememnted with each "for" loop.
+            int x, y; // Values are incremented with each "for" loop.
        
-            printf("\nEnter a unique set of 26 letters: "); /* User is asked to enter a unique combination of 26 letters which
+            printf("\nEnter a unique set of 26 letters (CAPITAL LETTERS ONLY): "); /* User is asked to enter a unique combination of 26 letters which
             is then stored in "EncryptionKey". */
             fgets(EncryptionKey, 26, stdin);
         
-            for (i = 0; i < strlen(out_text); i++) /* Condition: If the length of the string "out_text" is less than the incremented 
-            counter "i", the "For" loop will run. */
+            for (x = 0; x < strlen(out_text); x++) /* Condition: If the length of the string "out_text" is less than the incremented 
+            counter "x", the "For" loop will run. */
             {
-                for (j = 0; j < 26; j++) // Condition: If "j" is less than 26, this "for" loop will run. 
+                for (y = 0; y < 26; y++) // Condition: If "y" is less than 26, this "for" loop will run. 
                 {
-                    if(alpha[j]==out_text[i]) // If the "alpha array" is equal in length to the "out_text" array, out_text = EncryptionKey.
+                    if(alpha[y]==out_text[x]) // If the "alpha array" is equal in length to the "out_text" array, out_text = EncryptionKey.
                     {
-                        out_text[i]=EncryptionKey[j];
+                        out_text[x]=EncryptionKey[y];
                         break;
                     }
                 }
@@ -284,40 +284,40 @@ int main ()
          
 /*===========================================================================================*/
         
-        /* Line 301: Function "char *decryption(char (out_text[]))" is called. The user is asked to input a message in the corresponding switch
+        /* Line 301: Function "char *decryption(char (out_text[]))" is called. The user is asked to input a message in thee corresponding switch
         statement (Line 184) which is then stored in the character pointer "*cipher_text". The function ultimately substitutes the letters from the message 
         with the corresponding letters within the user's unique set of characters.
         
         Example:
         
-             Alpha: ABCDEFGHIJKLMNOPQRSTUVWXYZ
-        User input: QWERTYUIOPASDFGHJKLZXCVBNM
-           Message: ITSSG
- Decrypted message: HELLO
+                    Alpha: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+               User input: QWERTYUIOPASDFGHJKLZXCVBNM
+                  Message: ITSSG
+        Decrypted message: HELLO
            
-        The return value of this function is the value of "out_text" . The only limitations evident with this function is that the  message size is CANNOT 
+        The return value of this function is the value of "out_text" . The only limitations evident within this function is that the message size is CANNOT 
         exceed 1000 characters in length. */
        
         char *decryption(char (out_text[]))
         {
-            int i, j;
+            int x, y;
             char cipher[1000];
             
-            printf("\nEnter a unique set of 26 letters: "); /* User is asked to enter a unique combination of 26 letters which
+            printf("\nEnter a unique set of 26 letters (CAPITAL LETTERS ONLY): "); /* User is asked to enter a unique combination of 26 letters which
             is then stored in "DecryptionKey". */
             fgets(DecryptionKey, 26, stdin);
             
             cipher[1000] = DecryptionKey[26]; // "DecryptionKey" assigned to "cipher".
             
-            for(i = 0; i < strlen(out_text); i++) /* Condition: If the length of the string "out_text" is less than the incremented value of "i", the 
+            for(x = 0; x < strlen(out_text); x++) /* Condition: If the length of the string "out_text" is less than the incremented value of "x", the 
             "for" loop will run. */
             {
-                for (j = 0; j < 26; j++) // Condition: If "j" is less than 26, the "for" loop will continue to run.
+                for (y = 0; y < 26; y++) // Condition: If "y" is less than 26, the "for" loop will continue to run.
                 {
-                    if (DecryptionKey[j] == out_text[i]) /* If "DecryptionKey" ,incremented by "j", is equal to "out_text", incrememnted by "i", the value of "out_text"
-                    incrememnted by "j" is assigned to "out_text" incrememnted by "i". */
+                    if (DecryptionKey[y] == out_text[x]) /* If "DecryptionKey" ,incremented by "y", is equal to "out_text", incrememnted by "x", the value of "alpha"
+                    incrememnted by "y" is assigned to "out_text" incrememnted by "x". */
                     {
-                        out_text[i] = alpha[j];
+                        out_text[x] = alpha[y];
                         break;
                     }
                 }
@@ -332,5 +332,7 @@ int main ()
        
        Rotation Cipher: https://www.thecrazyprogrammer.com/2016/11/caesar-cipher-c-c-encryption-decryption.html
        
-       Substitution Cipher: http://spceng.blogspot.com/2016/07/mono-alphabetoc-cipher-c-program.html#more */
-        
+       Substitution Cipher: http://spceng.blogspot.com/2016/07/mono-alphabetoc-cipher-c-program.html#more 
+       
+       Indentation Style: http://syque.com/cstyle/ch6.7.htm */
+                 
