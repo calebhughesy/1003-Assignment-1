@@ -58,8 +58,8 @@ int main ()
     int choice;
 
     /* Lines 61-64: Initial menu presented to user. */    
-    printf("Please choose from one of the following options:\n\n");
-    printf("1. Rotation\n");
+    printf("Please choose from one of the following options:\n");
+    printf("\n1. Rotation\n");
     printf("2. Substitution\n");
     printf("3. Decryption via rotation WITHOUT key\n");
     printf("\nChoice: ");
@@ -79,7 +79,7 @@ int main ()
    
             /* Lines 81-83: Internal menu for encryption or decryption via rotation. */
             printf("\nPlease choose from the following options:\n");
-            printf("1. Encryption\n");
+            printf("\n1. Encryption\n");
             printf("2. Decryption\n");
             printf("\nChoice: ");
             scanf("%d", &choice); // Program reads integer value, then jumps to corresponding case value in swtich statement below.
@@ -87,7 +87,7 @@ int main ()
             /* The below switch statement is specific to the "Rotation" Cipher. */
             switch(choice)
             {
-                case 1: printf("Encryption selected.\n");
+                case 1: printf("\nEncryption selected.\n");
                 {
                     printf("Please enter a message to encrypt (CAPITAL LETTERS ONLY): ");
                     fgetc(stdin); // Reads and stores first letter of string inputted by user in terminal (stdin). Implemented due to problems reading first letter of string.
@@ -155,15 +155,15 @@ int main ()
         
 /*===========================================================================================*/       
         
-        case 2: printf("Substitution Cipher selected."); 
+        case 2: printf("\nSubstitution Cipher selected."); 
         {
             int choice;
             char message[1000], cipher[1000], *cipher_text, *out_text, *c_text; /* "*out_text", "*cipher_text" and "*c_text" are character
             pointers. Pointers are variables that store or point to the address of another variable. */
             
             /* Lines 165-167: Menu for Substitutution Cipher. */
-            printf("\nPlease choose from the following options:");
-            printf("\n\n1. Encryption");
+            printf("\nPlease choose from the following options:\n");
+            printf("\n1. Encryption");
             printf("\n2. Decryption\n");
             printf("\nChoice: ");
             scanf("%d", &choice);
@@ -197,7 +197,7 @@ int main ()
 
 /*===========================================================================================*/
         
-        case 3: printf("Decryption via rotation WITHOUT key selected.\n");
+        case 3: printf("\nDecryption via rotation WITHOUT key selected.\n");
         {
             char message[1000], ch;
 	        int i, key = 1; // Initial value of key is set to 1.
